@@ -1,5 +1,5 @@
 all:
-	cd srcs / && sudo docker-compose build up
+	cd srcs / && sudo docker-compose build up -d
 
 clean : 
-	cd srcs / && sudo docker-compose down -v --rmi all --remove-orphans
+	sudo docker-compose ./requirements down -v --rmi all --remove-orphans
