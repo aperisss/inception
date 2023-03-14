@@ -1,8 +1,9 @@
-version: '3.9'
+version: '3.8'
 
 services:
   nginx: 
     container_name: nginx
     build: ./requirements/nginx
     restart: always
-    networks: docker_network
+    networks: 
+      - docker_network
