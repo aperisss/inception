@@ -5,5 +5,3 @@ services:
     container_name: nginx
     build: ./requirements/nginx
     restart: always
-    networks: 
-      - docker_network
