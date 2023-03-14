@@ -7,4 +7,5 @@ COPY ./conf/.conf /ect/nginx/conf.d/
 
 EXPOSE 443
 
-CMD ["nginx", "-g" "daemon off;"]
+#CMD ["nginx", "-g" "daemon off;"]
+ENTRYPOINT nginx -g 'daemon off;'
