@@ -3,7 +3,7 @@ FROM debian:buster
 RUN apt-get update && apt-get -y install nginx \
     && rm -rf /var/lib/apt/lists/*
 
-COPY ./conf/.conf /ect/nginx/conf.d/
+COPY ./conf/.conf /etc/nginx/conf.d/
 
 EXPOSE 443
 
