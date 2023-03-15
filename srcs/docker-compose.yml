@@ -7,3 +7,10 @@ services:
     container_name: nginx
     build: ./requirements/nginx
     restart: unless-stopped
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    restart: unless_stoped
+    env_file:
+      - .env
