@@ -5,7 +5,7 @@ RUN apt-get update && apt-get -y install nginx \
 
 COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
-EXPOSE 443
+EXPOSE 443/tcp
 
 CMD ["nginx", "-g", "daemon off;"]
 #ENTRYPOINT nginx -g 'daemon off;'
