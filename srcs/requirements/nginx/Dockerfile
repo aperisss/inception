@@ -1,6 +1,7 @@
 FROM debian:buster
 
 RUN apt-get update && apt-get -y install nginx \
+    ssl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/aperis.key -out /etc/ssl/aperis.pem
