@@ -20,13 +20,13 @@ services:
     volumes:
       - mariadb_v:/var/lib/mysql
       
-  networks:
+networks:
     docker_network:
 
-  volumes:
-    mariadb_v:
-      driver: local
-      driver_opts:
-        type: none
-        o: bind
-        device: /home/tblaase/data/mariadb
+volumes:
+  mariadb_v:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/tblaase/data/mariadb
