@@ -5,7 +5,7 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y mariadb-server
 
 EXPOSE 3306
 
-COPY ./conf/my.cnf /etc/mysql/mariadb.conf.d
+COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
 
 RUN bash ./create_db.sh
