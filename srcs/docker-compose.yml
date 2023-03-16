@@ -7,7 +7,7 @@ services:
     container_name: nginx
     build: ./requirements/nginx
     restart: unless-stopped
-    network: docker_network
+    networks: docker_network
     depends_on: 
       - mariadb
 
@@ -17,7 +17,7 @@ services:
     restart: unless_stopped
     env_file:
       - .env
-    network: docker_network
+    networks: docker_network
     volumes:
       - mariadb_v:/var/lib/mysql
       
