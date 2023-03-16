@@ -8,7 +8,8 @@ services:
     build: ./requirements/nginx
     restart: unless-stopped
     network: docker_network
-    depends_on: mariadb
+    depends_on: 
+      - mariadb
 
   mariadb:
     container_name: mariadb
