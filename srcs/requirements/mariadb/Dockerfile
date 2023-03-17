@@ -12,7 +12,8 @@ EXPOSE 3306
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
 
-RUN bash ./create_db.sh
+#RUN bash ./create_db.sh
+RUN service mysql start && mariadb -u root < ./create_db.sh
 
 
 CMD ["mysqld_safe"]
