@@ -10,8 +10,9 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y mariadb-server
 EXPOSE 3306
 
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
-COPY ./tools/create_db.sh /usr/local/bin/
+COPY ./tools/create_db.sh /
 
-ENTRYPOINT ["create_db.sh"]
+RUN bash ./create_db.sh
+
 
 CMD ["mysqld_safe"]
