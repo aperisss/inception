@@ -14,5 +14,3 @@ COPY ./tools/create_db.sh /
 
 ENTRYPOINT [ "sh", "create_db.sh"]
 
-
-CMD ["mysqld_safe"]
