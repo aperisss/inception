@@ -15,7 +15,7 @@ services:
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb
-    restart: unless-stopped
+    restart: always
     env_file:
       - .env
     networks: 
