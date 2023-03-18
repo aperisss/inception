@@ -13,7 +13,6 @@ COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
 
 RUN service mysql start && \
- 	mysql < create_db.sh && \
     bash ./create_db.sh
 
 
