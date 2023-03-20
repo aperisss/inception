@@ -7,7 +7,11 @@ RUN apt-get update -yq
 RUN apt-get upgrade -y
 # update the debian image and upgrade the packages 
 
-RUN apt-get install -y mariadb-server
+RUN apt-get install -y mariadb-server \
+&& chown -R mysql:mysql /var/run/mysqld \
+# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+&& chmod 777 /var/run/mysqld
+
 # install mariadb-server
 
 EXPOSE 3306
@@ -17,8 +21,11 @@ COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./ /var/www/
 # copy the conf file to the mariadb.conf.d folder and copy the whole folder to the var/www folder
 
+RUN service mysql start 
+#start the mysql server 
+
 COPY ./tools/create_db.sh /create_db.sh
-# copy the entrypoint.sh file to the root directory 
+# copy the create_db.sh file to the root directory 
 
 VOLUME  "/var/run/mysql"
 # create a volume to the mysql folder 
