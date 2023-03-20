@@ -1,7 +1,9 @@
+#!/bin/bash
 
-CREATE DATABASE IF NOT EXISTS wordpress;
+service mysql start
 
-CREATE USER 'aperis'@'%';
-SET PASSWORD FOR 'aperis'@'%' = PASSWORD('perisa');
-GRANT ALL PRIVILEGES ON wordpress.* TO 'aperis'@'%' IDENTIFIED BY 'perisa';
-FLUSH PRIVILEGES;
+mysql -u root -e "CREATE DATABASE ${DB_NAME};"
+mysql -u root -e "CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON ${DB_NAME}.* TO '${DB_USER}'@'%';"
+mysql -u root -e "FLUSH PRIVILEGES;"
+mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';"
