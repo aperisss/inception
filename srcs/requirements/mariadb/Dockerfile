@@ -13,4 +13,4 @@ COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
 
 
-CMD ["mysqld_safe"]
+ENTRYPOINT [ "sh", "create_db.sh"]
