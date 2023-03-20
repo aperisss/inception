@@ -12,6 +12,6 @@ EXPOSE 3306
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
 
-RUN  sh create_db.sh
+RUN  service mysql start && sh create_db.sh
 
 CMD ["mysql"]
