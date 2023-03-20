@@ -25,18 +25,18 @@ services:
     volumes:
       - mariadb_v:/var/lib/mysql
 
-  wordpress:
-    container_name: wordpress
-    build: ./requirements/wordpress
-    restart: unless-stopped
-    env_file:
-      - .env
-    depends_on: 
-      - mariadb
-    networks: 
-      - docker_network
-    volumes:
-      - wordpress_data:/var/www/html/wordpress
+  #wordpress:
+    #container_name: wordpress
+    #build: ./requirements/wordpress
+    #restart: unless-stopped
+    #env_file:
+     # - .env
+    #depends_on: 
+     # - mariadb
+    #networks: 
+     # - docker_network
+    #volumes:
+      #- wordpress_data:/var/www/html/wordpress
       
 networks:
     docker_network:
@@ -48,9 +48,9 @@ volumes:
       type: none
       o: bind
       device: /home/aperis/data/mariadb
-  wordpress_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/aperis/data/wordpress
-      o: bind
+  #wordpress_data:
+   # driver: local
+    #driver_opts:
+     # type: none
+      #device: /home/aperis/data/wordpress
+     # o: bind
