@@ -22,9 +22,6 @@ COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./ /var/www/
 # copy the conf file to the mariadb.conf.d folder and copy the whole folder to the var/www folder
 
-RUN service mysql start 
-#start the mysql server 
-
 COPY ./tools/entrypoint.sh /entrypoint.sh
 # copy the create_db.sh file to the root directory 
 
