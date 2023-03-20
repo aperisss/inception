@@ -1,32 +1,16 @@
 FROM debian:buster
-# 
 
-RUN apt-get update -yq
-# update the debian image -q is for quiet mode quiet mode is used to avoid the output of the update
-
-RUN apt-get upgrade -y
-# update the debian image and upgrade the packages 
-
-RUN apt-get install -y mariadb-server \
+RUN apt-get update -y && apt-get upgrade -y && apt-get install -y mariadb-server \
+ && rm -rf /var/lib/apt/lists/* \
  && mkdir -p /var/run/mysqld \
-&& chown -R mysql:mysql /var/run/mysqld \
+ && chown -R mysql:mysql /var/run/mysqld \
 # ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
 && chmod 777 /var/run/mysqld
 
-# install mariadb-server
-
 EXPOSE 3306
-# expose the port 3306 to the host machine 
 
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
-COPY ./ /var/www/
-# copy the conf file to the mariadb.conf.d folder and copy the whole folder to the var/www folder
+COPY ./tools/entrypoint.sh /
 
-COPY ./tools/entrypoint.sh /entrypoint.sh
-# copy the create_db.sh file to the root directory 
 
-VOLUME  "/var/run/mysql"
-# create a volume to the mysql folder 
-
-ENTRYPOINT  [ "sh", "entrypoint.sh"]
-# start the entrypoint.sh file in the foreground so that the container does not stop
+CMD ["mysqld_safe"]
