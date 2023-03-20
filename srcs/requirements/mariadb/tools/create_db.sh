@@ -1,5 +1,3 @@
-service mysql start
-
 CREATE DATABASE IF NOT EXISTS wordpress;
 
 CREATE USER 'aperis'@'%';
