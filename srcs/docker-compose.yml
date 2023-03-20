@@ -23,7 +23,7 @@ services:
     networks: 
       - docker_network
     volumes:
-      - mariadb_v:/var/lib/mysql
+      - mariadb_v:/var/run/mysql
 
   #wordpress:
     #container_name: wordpress
