@@ -29,8 +29,11 @@ services:
       - mariadb_v:/var/run/mysqld
 
   wordpress:
-    env_file:
-      - .env
+    environment:
+      - WP_NAME=${WP_NAME}
+      - WP_USER=${WP_USER}
+      - WP_USER_PASSWORD=${WP_USER_PASSWORD}
+      - WP_ROOT_PASSWORD=${WP_ROOT_PASSWORD}
     container_name: wordpress
     build: ./requirements/wordpress
     restart: unless-stopped

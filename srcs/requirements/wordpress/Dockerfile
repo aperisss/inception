@@ -8,4 +8,4 @@ COPY ./conf /var/www/
 
 EXPOSE 9000
 
-CMD ["bash", "/var/www/setup.sh"]
+CMD ["bash", "/var/www/wordpress.sh"]

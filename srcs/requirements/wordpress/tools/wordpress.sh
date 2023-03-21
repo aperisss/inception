@@ -3,12 +3,12 @@ cd /var/www/wordpress
 wp core config	--dbhost=$DB_HOST \
 				--dbname=$DB_NAME \
 				--dbuser=$DB_USER \
-				--dbpass=$DB_PASSWORD \
+				--dbpass=$DB_USER_PASSWORD \
 				--allow-root
 
 wp core install --title=$WP_TITLE \
-				--admin_user=$WP_ADMIN_USER \
-				--admin_password=$WP_ADMIN_PASSWORD \
+				--admin_user=$WP_ROOT \
+				--admin_password=$WP_ROOTPASSWORD \
 				--admin_email=$WP_ADMIN_MAIL \
 				--url=$WP_URL \
 				--allow-root
