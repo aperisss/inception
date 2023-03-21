@@ -7,14 +7,11 @@ if [ -f "/var/lib/mysql/entry" ];then #check if the database has been initialize
 else 
     service mysql restart  #start the MariaDB service and create the initial database and root user
 
-    mysql -e "CREATE DATABASE $DB_DATA_BASE_NAME" 
+    mysql -e "CREATE DATABASE $DB_NAME" 
     #create the database  with the name $DB_DATA_BASE_NAME
 
-    mysql -e "CREATE USER '$DB_ADMIN'@'%' IDENTIFIED BY '$DB_ADMIN_PASSWORD'; GRANT ALL PRIVILEGES ON $DB_DATA_BASE_NAME.* TO '$DB_ADMIN'@'%' IDENTIFIED BY '$DB_ADMIN_PASSWORD' WITH GRANT OPTION; flush privileges;" 
+    mysql -e "CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWORD'; GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWORD' WITH GRANT OPTION; flush privileges;" 
     #create the admin user with the name $DB_ADMIN and password $DB_ADMIN_PASSWORD and grant all privileges to the database $DB_DATA_BASE_NAME to the user $DB_ADMIN 
-
-    mysql -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$WP_BASE_PASS') ; flush privileges ;" 
-    #change the root password to $WP_BASE_PASS
 
     touch /var/lib/mysql/entry
     #mark the database as initialized 
