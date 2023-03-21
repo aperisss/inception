@@ -1,7 +1,13 @@
+echo "Aaaaaaaaaaaaaaaaaaaaa";
+echo $DB_USER_PASSWORD;
+echo $DB_ROOT_PASSWORD;
+echo $DB_NAME;
+echo $DB_USER;
+echo "BBBBBBBBBBBBBBbbbbbb";
+
+
 CREATE DATABASE IF NOT EXISTS wordpress;
 
-echo "Aaaaaaaaaaaaaaaaaaaaa";
-echo "BBBBBBBBBBBBBBbbbbbb";
 CREATE USER $DB_USER@'%';
 SET PASSWORD FOR $DB_USER@'%' = PASSWORD('$DB_USER_PASSWORD');
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('DB_ROOT_PASSWORD');
