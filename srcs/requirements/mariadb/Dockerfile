@@ -12,5 +12,5 @@ EXPOSE 3306
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
 
-ENTRYPOINT  [ "sh", "entrypoint.sh"]
+ENTRYPOINT  [ "sh", "create_db.sh"]
 # start the entrypoint.sh file in the foreground so that the container does not stop 
