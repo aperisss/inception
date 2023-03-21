@@ -1,11 +1,3 @@
-echo "Aaaaaaaaaaaaaaaaaaaaa";
-echo $DB_USER_PASSWORD;
-echo $DB_ROOT_PASSWORD;
-echo $DB_NAME;
-echo $DB_USER;
-echo "BBBBBBBBBBBBBBbbbbbb";
-
-
 CREATE DATABASE IF NOT EXISTS wordpress;
 
 CREATE USER $DB_USER@'%';
