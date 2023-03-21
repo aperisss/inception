@@ -11,7 +11,7 @@ EXPOSE 3306
 
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
-ENTRYPOINT ["create_db.sh"]
+ENTRYPOINT ["sh", "create_db.sh"]
 
 
 CMD ["mysqld", "--bind-address=0.0.0.0"]
