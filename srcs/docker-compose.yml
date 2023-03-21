@@ -15,7 +15,7 @@ services:
       #- wordpress_data:/var/www/html/wordpress
 
   mariadb:
-  env_file:
+    env_file:
       - .env
     container_name: mariadb
     build: ./requirements/mariadb
