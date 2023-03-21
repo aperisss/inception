@@ -15,22 +15,22 @@ services:
       #- wordpress_data:/var/www/html/wordpress
 
   mariadb:
+  env_file:
+      - .env
     container_name: mariadb
     build: ./requirements/mariadb
     restart: unless-stopped
-    env_file:
-      - .env
     networks: 
       - docker_network
     volumes:
       - mariadb_v:/var/run/mysql
 
   #wordpress:
+    #env_file:
+     # - .env
     #container_name: wordpress
     #build: ./requirements/wordpress
     #restart: unless-stopped
-    #env_file:
-     # - .env
     #depends_on: 
      # - mariadb
     #networks: 
