@@ -1,3 +1,8 @@
+mysql_install_db
+
+/etc/init.d/mysql start
+
+
 CREATE DATABASE IF NOT EXISTS wordpress;
 
 CREATE USER $DB_USER@'%';

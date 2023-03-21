@@ -11,6 +11,7 @@ EXPOSE 3306
 
 COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
 COPY ./tools/create_db.sh /
-RUN service mysql start && mariadb -u root < /create_db.sh
+ENTRYPOINT ["create_db.sh"]
 
-CMD ["mysqld"]
+
+CMD ["mysqld", "--bind-address=0.0.0.0"]
