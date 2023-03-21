@@ -29,8 +29,8 @@ services:
       - mariadb_v:/var/run/mysqld
 
   wordpress:
-      env_file:
-        - .env
+    env_file:
+      - .env
     container_name: wordpress
     build: ./requirements/wordpress
     restart: unless-stopped
