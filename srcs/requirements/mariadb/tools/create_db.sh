@@ -1,7 +1,19 @@
-CREATE DATABASE IF NOT EXISTS wordpress;
+if [ -f "/var/lib/mysql/entry" ];then 
+    exec mysqld         
+    exit       
 
-CREATE USER $DB_USER@'%';
-SET PASSWORD FOR $DB_USER@'%' = PASSWORD('$DB_USER_PASSWORD');
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('DB_ROOT_PASSWORD');
-GRANT ALL PRIVILEGES ON wordpress.* TO $DB_USER@'%' IDENTIFIED BY '$DB_USER_PASSWORD';
-FLUSH PRIVILEGES;
+else 
+    service mysql restart  
+    
+    mysql -e "CREATE DATABASE $DB_NAME" 
+    
+
+    mysql -e "CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWORD'; GRANT ALL PRIVILEGES ON $DB__NAME.* TO '$DB_USER'@'%' IDENTIFIED BY '$DB_USER_PASSWORD' WITH GRANT OPTION; flush privileges;" 
+    
+    
+    touch /var/lib/mysql/entry
+
+    chmod 777 /var/lib/mysql/*
+    
+    exec mysqld_safe
+fi
