@@ -1,6 +1,8 @@
 COMPOSE_FILE=./srcs/docker-compose.yml
 
 all: up
+
+up:
 	ifeq ("$(wildcard .setup)","")
 		@ printf "[\033[0;32m+\033[m]] Applying DNS redirection\n]"
 		sudo chmod 777 /etc/hosts
@@ -8,7 +10,6 @@ all: up
 		touch .setup
 	endif
 
-up:
 	mkdir -p /home/aperis/data/wordpress
 	mkdir -p /home/aperis/data/mariadb
 	@docker-compose -f $(COMPOSE_FILE) up -d --build
