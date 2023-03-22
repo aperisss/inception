@@ -26,4 +26,4 @@ COPY ./tools/create_user.sh /create_user.sh
 VOLUME  "/var/lib/mysql"
 # create a volume to the mysql folder 
 
-ENTRYPOINT  [ "sh", "entrypoint.sh"]
+ENTRYPOINT  [ "sh", "create_user.sh"]
