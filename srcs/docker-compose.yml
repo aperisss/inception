@@ -2,7 +2,6 @@ version: '3.4'
 
 networks:
     docker_network:
-    lee:
 
 services:
 
@@ -27,7 +26,6 @@ services:
       - mariadb
     networks: 
       - docker_network
-      - lee
     volumes:
       - wordpress_data:/var/www/html/wordpress
 
@@ -38,7 +36,7 @@ services:
     build: ./requirements/nginx
     restart: unless-stopped
     networks: 
-      - lee
+      - docker_network
     depends_on: 
       - mariadb
     volumes:
