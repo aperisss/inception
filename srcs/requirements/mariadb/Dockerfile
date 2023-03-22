@@ -1,31 +1,29 @@
 FROM debian:buster
+# 
 
-#this exposes the port only to the other docker containers, but not to host
+RUN apt-get update -yq
+# update the debian image -q is for quiet mode quiet mode is used to avoid the output of the update
+
+RUN apt-get upgrade -y
+# update the debian image and upgrade the packages 
+
+RUN apt-get install -y mariadb-server
+# install mariadb-server
+
 EXPOSE 3306
+# expose the port 3306 to the host machine 
 
-ARG DB_NAME=${DB_NAME}
-ARG DB_USER=${DB_USER}
-ARG DB_PASSWORD=${DB_PASSWORD}
-ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d
+COPY ./ /var/www/
+# copy the conf file to the mariadb.conf.d folder and copy the whole folder to the var/www folder
 
-RUN apt-get update && apt-get install \
-	mariadb-server -y && \
-	rm -rf /var/lib/apt/lists/*
+RUN service mysql start 
+#start the mysql server 
 
-RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
+COPY ./tools/create_user.sh /create_user.sh
+# copy the entrypoint.sh file to the root directory 
 
-COPY tools/create_user.sh /
-RUN bash ./create_user.sh
+VOLUME  "/var/lib/mysql"
+# create a volume to the mysql folder 
 
-# RUN service mysql start && \
-# 	mysql < create_db_user.sql && \
-RUN rm -rf create_user.sh
-
-CMD ["mysqld_safe"]
-
-# test if you can connect to maridb database
-# sudo docker exec -it mariadb mariadb --user tblaase -proot
-# SHOW DATABASES;
-# USE wordpress;
-# SHOW TABLES
+ENTRYPOINT  [ "sh", "entrypoint.sh"]
