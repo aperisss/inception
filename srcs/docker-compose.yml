@@ -8,15 +8,18 @@ services:
     build: ./requirements/nginx
     restart: unless-stopped
     networks: 
-      - lee
+      - docker_network
     depends_on: 
       - mariadb
     volumes:
       - wordpress_data:/var/www/html/wordpress
 
   mariadb:
-    env_file:
-      - .env    
+    environment:
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_USER_PASSWORD=${DB_USER_PASSWORD}
+      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
     container_name: mariadb
     build: ./requirements/mariadb
     restart: unless-stopped
@@ -35,13 +38,11 @@ services:
       - mariadb
     networks: 
       - docker_network
-      - lee
     volumes:
       - wordpress_data:/var/www/html/wordpress
       
 networks:
     docker_network:
-    lee:
 
 volumes:
   mariadb_v:
