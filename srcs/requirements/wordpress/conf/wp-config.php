@@ -18,7 +18,7 @@ define( 'DB_CHARSET', 'utf8' );
 define( 'DB_COLLATE', '' ); 
 
 
-define('WP_CACHE_KEY_SALT', 'mabid.42.fr'); # Changer la valeur de WP_CACHE_KEY_SALT pour invalider les cookies existants. Cela forcera tous les utilisateurs à se reconnecter.
+define('WP_CACHE_KEY_SALT', 'aperis.42.fr'); # Changer la valeur de WP_CACHE_KEY_SALT pour invalider les cookies existants. Cela forcera tous les utilisateurs à se reconnecter.
 /**#@-*/
 
 $table_prefix = 'wp_';
