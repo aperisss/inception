@@ -11,4 +11,6 @@ COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
 
 EXPOSE 443
 
+VOLUME "/var/www/wordpress"
+
 ENTRYPOINT nginx -g 'daemon off;'
