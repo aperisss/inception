@@ -1,18 +1,10 @@
 version: '3.4'
 
+networks:
+    docker_network:
+    lee:
+
 services:
-  nginx:
-    ports:
-      - "443:443"
-    container_name: nginx
-    build: ./requirements/nginx
-    restart: unless-stopped
-    networks: 
-      - lee
-    depends_on: 
-      - mariadb
-    volumes:
-      - wordpress_data:/var/www/html/wordpress
 
   mariadb:
     env_file:
@@ -38,11 +30,20 @@ services:
       - lee
     volumes:
       - wordpress_data:/var/www/html/wordpress
-      
-networks:
-    docker_network:
-    lee:
 
+    nginx:
+    ports:
+      - "443:443"
+    container_name: nginx
+    build: ./requirements/nginx
+    restart: unless-stopped
+    networks: 
+      - lee
+    depends_on: 
+      - mariadb
+    volumes:
+      - wordpress_data:/var/www/html/wordpress
+      
 volumes:
   mariadb_v:
     driver: local
