@@ -6,7 +6,7 @@ define( 'DB_NAME', "$DB_NAME" );
 define( 'DB_USER', "$DB_USER" ); 
 
 /** Database password */
-define( 'DB_PASSWORD', "$DB_PASSWORD" ); 
+define( 'DB_USER_PASSWORD', "$DB_USER_PASSWORD" ); 
 
 /** Database hostname */
 define( 'DB_HOST', 'mariadb:3306' ); # mariadb:3306  
