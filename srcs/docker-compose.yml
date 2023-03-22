@@ -1,51 +1,51 @@
-version: '3.4'
+version: '3.5'
+
+
+networks:
+  inception: {}
 
 services:
-  nginx:
-    ports:
-      - "443:443"
-    container_name: nginx
-    build: ./requirements/nginx
-    restart: unless-stopped
-    networks: 
-      - docker_network
-    depends_on: 
-      - mariadb
-    volumes:
-      - wordpress_data:/var/www/html/wordpress
-
   mariadb:
-    environment:
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_USER_PASSWORD=${DB_USER_PASSWORD}
-      - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
     container_name: mariadb
-    build: ./requirements/mariadb
-    restart: unless-stopped
-    networks: 
-      - docker_network
+    image: mariadb
+    build:
+      context: ./requirements/mariadb
+    env_file:
+      - .env
+    networks:
+      - inception
     volumes:
-      - mariadb_v:/var/run/mysqld
+      - mariadb_v:/var/lib/mysql
+    restart: unless-stopped
 
   wordpress:
-    environment:
-      - WP_NAME=${WP_NAME}
-      - WP_USER=${WP_USER}
-      - WP_USER_PASSWORD=${WP_USER_PASSWORD}
-      - WP_ROOT_PASSWORD=${WP_ROOT_PASSWORD}
     container_name: wordpress
+    image: wordpress
     build: ./requirements/wordpress
-    restart: unless-stopped
-    depends_on: 
-      - mariadb
-    networks: 
-      - docker_network
+    networks:
+      - inception
     volumes:
-      - wordpress_data:/var/www/html/wordpress
-      
-networks:
-    docker_network:
+      - wordpress_v:/var/www/wordpress
+    env_file: .env
+    depends_on:
+      - mariadb
+    restart: unless-stopped
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    networks:
+      - inception
+    volumes:
+      - wordpress_v:/var/www/wordpress
+    depends_on:
+      - wordpress
+      - mariadb
+    restart: unless-stopped
+
 
 volumes:
   mariadb_v:
@@ -54,9 +54,10 @@ volumes:
       type: none
       o: bind
       device: /home/aperis/data/mariadb
-  wordpress_data:
+
+  wordpress_v:
     driver: local
     driver_opts:
       type: none
-      device: /home/aperis/data/wordpress
       o: bind
+      device: /home/aperis/data/wordpress

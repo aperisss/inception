@@ -1,14 +1,14 @@
 FROM debian:buster
 
-RUN  apt-get update && apt-get -y install nginx \
-    openssl \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+	nginx \
+	openssl && \
+	rm -rf /var/lib/apt/lists/*
 
-RUN openssl req -x509 -newkey rsa:2048 -nodes -keyout /etc/ssl/aperis.42.fr.key -out /etc/ssl/aperis.42.fr.pem -days 365 \
-    -subj "/C=FR/ST=France/L=Paris/O=42, Inc./OU=IT/CN=aperis.42.fr"
+COPY ./conf/nginx.conf /etc/nginx/sites-available/default
 
-COPY ./conf/nginx.conf /etc/nginx/conf.d/nginx.conf
+RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 \
+	-keyout /etc/ssl/private/nginx.key \
+	-out /etc/ssl/certs/nginx.crt -sha256 -subj "/CN=aperis.42.fr"
 
-EXPOSE 443
-
-ENTRYPOINT nginx -g 'daemon off;'
+CMD ["nginx", "-g", "daemon off;"]

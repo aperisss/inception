@@ -1,16 +1,31 @@
 FROM debian:buster
 
-RUN apt-get update -y && apt-get upgrade -y && apt-get install -y mariadb-server \
- && rm -rf /var/lib/apt/lists/* \
- && mkdir -p /var/run/mysqld \
- && chown -R mysql:mysql /var/run/mysqld \
-# ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
-&& chmod 777 /var/run/mysqld
-
+#this exposes the port only to the other docker containers, but not to host
 EXPOSE 3306
 
-COPY ./conf/mariadb.conf /etc/mysql/mariadb.conf.d
-COPY ./tools/create_db.sh /
+ARG DB_NAME=${DB_NAME}
+ARG DB_USER=${DB_USER}
+ARG DB_PASSWORD=${DB_PASSWORD}
+ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 
-ENTRYPOINT  [ "sh", "create_db.sh"]
-# start the entrypoint.sh file in the foreground so that the container does not stop 
+RUN apt-get update && apt-get install \
+	mariadb-server -y && \
+	rm -rf /var/lib/apt/lists/*
+
+RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
+
+COPY tools/create_user.sh /
+RUN bash ./create_user.sh
+
+# RUN service mysql start && \
+# 	mysql < create_db_user.sql && \
+RUN rm -rf create_user.sh
+
+CMD ["mysqld_safe"]
+
+# test if you can connect to maridb database
+# sudo docker exec -it mariadb mariadb --user tblaase -proot
+# SHOW DATABASES;
+# USE wordpress;
+# SHOW TABLES
