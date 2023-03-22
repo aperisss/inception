@@ -2,6 +2,7 @@ version: '3.4'
 
 networks:
     docker_network:
+    lee:
 
 services:
 
@@ -26,6 +27,7 @@ services:
       - mariadb
     networks: 
       - docker_network
+      - lee
     volumes:
       - wordpress_data:/var/www/html/wordpress
 
