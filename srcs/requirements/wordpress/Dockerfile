@@ -22,6 +22,6 @@ RUN chmod +x ./usr/bin/wp
 
 RUN mkdir /run/php
 
-COPY ./conf/wordpress.sh /var/www/wordpress/wordpress.sh
+COPY ./tools/wordpress.sh /var/www/wordpress/wordpress.sh
 RUN chmod +x /var/www/wordpress/wordpress.sh
 CMD ["bash", "/var/www/wordpress/wordpress.sh"]
