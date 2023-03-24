@@ -3,6 +3,7 @@ COMPOSE_FILE=./srcs/docker-compose.yml
 all: up
 
 up:
+	sudo hwclock --hctosys
 	mkdir -p /home/aperis/data/wordpress
 	mkdir -p /home/aperis/data/mariadb
 	@docker-compose -f $(COMPOSE_FILE) up -d --build
